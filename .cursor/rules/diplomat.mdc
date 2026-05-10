@@ -1,0 +1,66 @@
+---
+description: Rules for AI agents working on diplomat-agent-ts
+globs: ["**/*.ts", "toolcalls.yaml", "tests/fixtures/**"]
+alwaysApply: true
+---
+
+# diplomat-agent-ts — Cursor rules
+
+## Project purpose
+Static analyser that detects unguarded AI agent tool calls in TypeScript
+codebases and maps them to OWASP Agentic Top-10 threats.
+
+## Critical rules
+
+### Never break the exit code contract
+- Exit 0 = scan ran (findings may exist)
+- Exit 1 = `--fail-on-unchecked` triggered
+- Exit 2 = bad args / path error
+
+### Do not add guards to unguarded fixtures
+Files under `tests/fixtures/unguarded-*/` are intentionally unguarded.
+Adding `// checked:ok` or guard logic there will break tests.
+
+### Pattern matchers use specific predicates
+In `src/scanner/patterns.ts`, always use `objContains`, `objExact`,
+`attrContains`, or `attrExact` — never the generic `obj` or `attr` variants.
+
+### Keep dependencies minimal
+Only `ts-morph` and `yaml` are allowed as runtime dependencies.
+Do not add new ones without explicit approval.
+
+### ESLint 9 flat config
+The project uses `eslint.config.js` (flat config). Legacy `.eslintrc.*` files
+are not supported.
+
+## Architecture quick reference
+
+```
+src/scanner/     → AST walking + pattern matching
+src/analyzer/    → guard detection + OWASP classification
+src/reporter/    → terminal / JSON / SBOM output
+src/cli.ts       → manual arg parsing (no commander/yargs)
+toolcalls.yaml   → authoritative pattern catalog
+```
+
+## Adding a new detection pattern
+
+1. Add the pattern to `toolcalls.yaml`
+2. Add a matcher in `src/scanner/patterns.ts`
+3. Add `tests/fixtures/unguarded-<name>/` and `tests/fixtures/guarded-<name>/`
+4. Run `npm test` — all tests must pass
+
+## Validation before committing
+
+```bash
+npm run build      # must succeed (zero tsc errors)
+npm run lint       # must succeed (zero ESLint errors)
+npm test           # must succeed (all tests green)
+node dist/cli.js scan ./src   # must exit 0 (dogfood, no --fail-on-unchecked)
+```
+
+## Node / TS conventions
+- Import Node builtins with `node:` prefix: `import fs from "node:fs"`
+- Import `process` explicitly: `import process from "node:process"`
+- `tsconfig.json` **excludes** `tests/` — tsc won't catch errors in test files
+- Use `unknown` + narrowing instead of `any`

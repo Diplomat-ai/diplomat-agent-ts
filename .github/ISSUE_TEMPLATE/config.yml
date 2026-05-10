@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussion / Q&A
+    url: https://github.com/Diplomat-ai/diplomat-agent-ts/discussions
+    about: Ask questions, share ideas, and discuss use-cases here.
+  - name: Report a security vulnerability
+    url: https://github.com/Diplomat-ai/diplomat-agent-ts/security/advisories/new
+    about: Please report security issues privately via GitHub Security Advisories.

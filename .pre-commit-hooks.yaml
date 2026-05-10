@@ -1,0 +1,8 @@
+- id: diplomat-agent-ts
+  name: diplomat-agent-ts — governance scan
+  description: Scan TypeScript code for unguarded AI agent tool calls
+  entry: npx --yes @diplomat-ai/diplomat-agent-ts scan
+  language: system
+  types: [ts]
+  args: ['--fail-on-unchecked']
+  pass_filenames: false

@@ -1,0 +1,62 @@
+{
+  "name": "@diplomat-ai/diplomat-agent-ts",
+  "version": "0.1.0",
+  "description": "Scan TypeScript AI agent code for unguarded tool calls. Reports every function with side effects and shows which ones have no checks.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "diplomat-agent-ts": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint \"src/**/*.ts\" \"tests/**/*.ts\" --ignore-pattern \"tests/fixtures/**\"",
+    "scan": "node dist/cli.js",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "ts-morph": "^28.0.0",
+    "yaml": "^2.8.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
+    "eslint": "^9.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "security",
+    "static-analysis",
+    "ast",
+    "typescript",
+    "governance",
+    "tool-calls",
+    "openai",
+    "anthropic",
+    "owasp"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Diplomat-ai/diplomat-agent-ts.git"
+  },
+  "homepage": "https://github.com/Diplomat-ai/diplomat-agent-ts",
+  "bugs": {
+    "url": "https://github.com/Diplomat-ai/diplomat-agent-ts/issues"
+  }
+}

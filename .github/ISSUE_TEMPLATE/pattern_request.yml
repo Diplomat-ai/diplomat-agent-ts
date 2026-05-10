@@ -1,0 +1,62 @@
+name: Pattern Request
+description: Request a new tool call category or library pattern to be detected
+title: "[Pattern]: "
+labels: ["enhancement", "pattern"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request a new side-effect category or detection pattern for a library or API.
+
+  - type: input
+    id: library
+    attributes:
+      label: Library / API name
+      placeholder: "e.g., @sendgrid/mail, aws-sdk, stripe"
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: TypeScript usage example
+      description: Show the call that should be detected.
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: Why is this a side effect?
+      description: |
+        Describe the real-world consequence of an AI agent calling this unchecked
+        (e.g., sends money, modifies database, exfiltrates data).
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Suggested OWASP Agentic category
+      options:
+        - database_write
+        - file_delete
+        - http
+        - email
+        - messaging
+        - payment
+        - llm
+        - exec
+        - dynamic_code
+        - agent
+        - other
+    validations:
+      required: true
+
+  - type: textarea
+    id: guard-example
+    attributes:
+      label: What a guarded version looks like (optional)
+      description: Paste TypeScript showing the pattern with a proper guard/confirmation.
+      render: typescript
