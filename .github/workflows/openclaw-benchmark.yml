@@ -19,7 +19,7 @@ jobs:
       contents: write  # required to upload to release
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.inputs.ref || 'main' }}
 
