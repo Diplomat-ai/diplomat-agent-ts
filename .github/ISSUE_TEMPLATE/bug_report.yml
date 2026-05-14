@@ -1,0 +1,60 @@
+name: Bug Report
+description: Report a false positive or false negative in pattern detection
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this! Please fill in as much detail as possible.
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue type
+      options:
+        - "False positive — safe code incorrectly flagged"
+        - "False negative — unsafe pattern not detected"
+        - "Crash / unhandled error"
+        - "Wrong OWASP category assigned"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Minimal code sample
+      description: Paste the TypeScript that triggered the issue.
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command used
+      description: Exact CLI invocation (flags, path, etc.)
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: diplomat-agent-ts version
+      placeholder: "e.g., 0.2.1"
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: "e.g., 20.14.0"

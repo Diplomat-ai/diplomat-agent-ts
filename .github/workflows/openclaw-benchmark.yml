@@ -1,0 +1,84 @@
+name: OpenClaw Benchmark
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch or tag to benchmark"
+        required: false
+        default: "main"
+  schedule:
+    - cron: "0 3 * * 1" # Every Monday at 03:00 UTC
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # required to upload to release
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || 'main' }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Clone OpenClaw corpus
+        run: git clone --depth 1 https://github.com/Diplomat-ai/openclaw.git /tmp/openclaw
+
+      - name: Scan OpenClaw — JSON report
+        run: |
+          node dist/cli.js scan /tmp/openclaw \
+            --format json \
+            --output openclaw-${{ github.ref_name }}.json
+
+      - name: Scan OpenClaw — YAML registry
+        run: |
+          node dist/cli.js scan /tmp/openclaw \
+            --output-registry openclaw-${{ github.ref_name }}.yaml
+
+      - name: Generate human-readable summary
+        run: |
+          {
+            echo "# OpenClaw benchmark — ${{ github.ref_name }}"
+            echo ""
+            echo "Scanner: diplomat-agent-ts ${{ github.ref_name }}"
+            echo "Target: Diplomat-ai/openclaw @ main"
+            echo "Date: $(date -u +%Y-%m-%d)"
+            echo ""
+            echo "## Summary"
+            echo ""
+            echo '```json'
+            cat openclaw-${{ github.ref_name }}.json | jq .summary
+            echo '```'
+          } > openclaw-${{ github.ref_name }}.md
+
+      - name: Upload as workflow artifact (always)
+        uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-benchmark-${{ github.ref_name }}
+          path: |
+            openclaw-${{ github.ref_name }}.json
+            openclaw-${{ github.ref_name }}.yaml
+            openclaw-${{ github.ref_name }}.md
+          retention-days: 90
+
+      - name: Upload to GitHub Release page
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            openclaw-${{ github.ref_name }}.json
+            openclaw-${{ github.ref_name }}.yaml
+            openclaw-${{ github.ref_name }}.md
