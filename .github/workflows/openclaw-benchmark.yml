@@ -65,7 +65,7 @@ jobs:
           } > openclaw-${{ github.ref_name }}.md
 
       - name: Upload as workflow artifact (always)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: openclaw-benchmark-${{ github.ref_name }}
           path: |
