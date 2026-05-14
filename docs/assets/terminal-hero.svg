@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" role="img" aria-labelledby="title desc" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace">
+  <title id="title">diplomat-agent-ts terminal output</title>
+  <desc id="desc">Sample governance scan output showing one unguarded Stripe payment call flagged with missing checks and OWASP Agentic codes.</desc>
+
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect x="20" y="20" width="880" height="520" rx="12" fill="#1B1F23" filter="url(#shadow)"/>
+
+  <rect x="20" y="20" width="880" height="36" rx="12" fill="#161A1E"/>
+  <rect x="20" y="44" width="880" height="12" fill="#161A1E"/>
+  <line x1="20" y1="56" x2="900" y2="56" stroke="#0C0E11" stroke-width="1"/>
+
+  <circle cx="44" cy="38" r="6" fill="#FF5F57"/>
+  <circle cx="64" cy="38" r="6" fill="#FEBC2E"/>
+  <circle cx="84" cy="38" r="6" fill="#28C840"/>
+
+  <text x="460" y="42" text-anchor="middle" font-size="12" fill="#8B949E">diplomat-agent — scan</text>
+
+  <text x="44" y="92" font-size="13" fill="#7D8590">$</text>
+  <text x="62" y="92" font-size="13" fill="#E6EDF3">diplomat-agent-ts scan ./src</text>
+
+  <text x="44" y="124" font-size="13" font-weight="700" fill="#E3B341">diplomat-agent</text>
+  <text x="170" y="124" font-size="13" fill="#E6EDF3">— governance scan</text>
+
+  <text x="44" y="150" font-size="13" fill="#E6EDF3">Scanned: <tspan fill="#58A6FF">./src</tspan></text>
+  <text x="44" y="170" font-size="13" fill="#E6EDF3">Tools with side effects: <tspan font-weight="700">3</tspan></text>
+
+  <text x="44" y="208" font-size="13" fill="#F85149">⚠ chargeCustomer()</text>
+  <text x="62" y="228" font-size="13" fill="#E6EDF3">Bounds on amount:<tspan dx="44" font-weight="700" fill="#F85149">NONE</tspan></text>
+  <text x="62" y="246" font-size="13" fill="#E6EDF3">Rate limit:<tspan dx="98" font-weight="700" fill="#F85149">NONE</tspan></text>
+  <text x="62" y="264" font-size="13" fill="#E6EDF3">Approval step:<tspan dx="74" font-weight="700" fill="#F85149">NONE</tspan></text>
+  <text x="62" y="284" font-size="12" fill="#8B949E">→ Risk: agent loop could execute 200 refunds in 10 min</text>
+  <text x="62" y="302" font-size="12" fill="#8B949E">⤷ no bounds on amount · no rate limit · no auth check · no idempotency key</text>
+  <text x="62" y="320" font-size="12" fill="#E3B341">OWASP: ASI-01 · ASI-02 · ASI-03 · ASI-06</text>
+  <text x="62" y="338" font-size="13" fill="#E6EDF3">Governance: <tspan font-weight="700" fill="#F85149">❌ UNGUARDED</tspan></text>
+
+  <text x="44" y="372" font-size="13" fill="#F85149">⚠ deleteUserData()</text>
+  <text x="62" y="392" font-size="13" fill="#E6EDF3">Confirmation step:<tspan dx="36" font-weight="700" fill="#F85149">NONE</tspan></text>
+  <text x="62" y="410" font-size="12" fill="#8B949E">→ Risk: single prompt could trigger mass deletion</text>
+  <text x="62" y="428" font-size="13" fill="#E6EDF3">Governance: <tspan font-weight="700" fill="#F85149">❌ UNGUARDED</tspan></text>
+
+  <text x="44" y="460" font-size="13" fill="#3FB950">✓ sendWelcomeEmail()</text>
+  <text x="62" y="478" font-size="12" fill="#8B949E">// checked:ok — opt-in confirmed before send</text>
+  <text x="62" y="496" font-size="13" fill="#E6EDF3">Governance: <tspan font-weight="700" fill="#3FB950">✅ CONFIRMED</tspan></text>
+
+  <text x="44" y="522" font-size="13" fill="#6E7681">────────────────────────────────────────</text>
+</svg>
