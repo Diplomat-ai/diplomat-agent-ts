@@ -9,3 +9,4 @@ coverage/
 .idea/
 *.tsbuildinfo
 .claude/
+.cursor/

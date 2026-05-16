@@ -1,0 +1,1279 @@
+{
+  "generated": "2026-05-15T14:28:40.595Z",
+  "version": "0.1.0",
+  "spec_version": "1.0",
+  "path": "/tmp/diplomat-benchmark/openai-agents-js/packages",
+  "language": "typescript",
+  "summary": {
+    "total": 33,
+    "no_checks": 31,
+    "partial_checks": 2,
+    "confirmed": 0
+  },
+  "tool_calls": [
+    {
+      "function": "asTool",
+      "file": "agents-core/src/agent.ts",
+      "line": 677,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "? await runner.run(this, runInput, {",
+          "line": 847
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": ": await runner.run(this, runInput, {",
+          "line": 851
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "? await runner.run(this, runInput, {",
+        ": await runner.run(this, runInput, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "run",
+      "file": "agents-core/src/run.ts",
+      "line": 397,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "return await runner.run(agent, input, options);",
+          "line": 406
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "return await runner.run(agent, input, options);",
+          "line": 408
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "return await runner.run(agent, input, options);",
+        "return await runner.run(agent, input, options);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "#fetchResponse",
+      "file": "agents-openai/src/openaiChatCompletionsModel.ts",
+      "line": 375,
+      "side_effects": [
+        {
+          "category": "llm_call",
+          "risk": 2,
+          "code": "const completion = await this.#client.chat.completions.create(",
+          "line": 506
+        }
+      ],
+      "guards": [
+        {
+          "type": "input_validation",
+          "coverage": "partial",
+          "code": "if (request.systemInstructions)",
+          "line": 423
+        }
+      ],
+      "missing_hints": [
+        "no rate limit",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-05",
+        "ASI-06"
+      ],
+      "status": "partial_checks",
+      "actions": [
+        "const completion = await this.#client.chat.completions.create("
+      ],
+      "checks": [
+        {
+          "type": "input_validation",
+          "coverage": "partial",
+          "code": "if (request.systemInstructions)",
+          "line": 423
+        }
+      ],
+      "missing": [
+        "no rate limit",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-05",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "export",
+      "file": "agents-openai/src/openaiTracingExporter.ts",
+      "line": 720,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await fetch(this.#options.endpoint, {",
+          "line": 757
+        }
+      ],
+      "guards": [
+        {
+          "type": "input_validation",
+          "coverage": "partial",
+          "code": "if (attempts >= this.#options.maxRetries)",
+          "line": 796
+        },
+        {
+          "type": "input_validation",
+          "coverage": "partial",
+          "code": "if (attempts >= this.#options.maxRetries)",
+          "line": 809
+        }
+      ],
+      "missing_hints": [
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "partial_checks",
+      "actions": [
+        "const response = await fetch(this.#options.endpoint, {"
+      ],
+      "checks": [
+        {
+          "type": "input_validation",
+          "coverage": "partial",
+          "code": "if (attempts >= this.#options.maxRetries)",
+          "line": 796
+        },
+        {
+          "type": "input_validation",
+          "coverage": "partial",
+          "code": "if (attempts >= this.#options.maxRetries)",
+          "line": 809
+        }
+      ],
+      "missing": [
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "connect",
+      "file": "agents-realtime/src/openaiRealtimeWebRtc.ts",
+      "line": 154,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const sdpResponse = await fetch(connectionUrl, {",
+          "line": 368
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const sdpResponse = await fetch(connectionUrl, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "#clearPendingResponseCreate",
+      "file": "agents-realtime/src/responseCreateSequencer.ts",
+      "line": 250,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "this.#pendingRequestVersions.delete(",
+          "line": 265
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "this.#pendingRequestVersions.delete("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "#clearAcceptedResponseCreate",
+      "file": "agents-realtime/src/responseCreateSequencer.ts",
+      "line": 279,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "this.#pendingRequestVersions.delete(version);",
+          "line": 289
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "this.#pendingRequestVersions.delete(version);"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "createSandboxHttpEventSink",
+      "file": "agents-core/src/sandbox/events.ts",
+      "line": 88,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await fetch(options.endpoint, {",
+          "line": 99
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await fetch(options.endpoint, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "getExposedGc",
+      "file": "agents-core/test/manual/gcRuntime.ts",
+      "line": 6,
+      "side_effects": [
+        {
+          "category": "dynamic_code",
+          "risk": 3,
+          "code": "const exposedGc = vm.runInNewContext('gc');",
+          "line": 19
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation on dynamic code"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const exposedGc = vm.runInNewContext('gc');"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation on dynamic code"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "runDockerProcess",
+      "file": "agents-core/src/sandbox/sandboxes/docker.ts",
+      "line": 1185,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const child = spawn('docker', args, {",
+          "line": 1189
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const child = spawn('docker', args, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "spawnShellCommand",
+      "file": "agents-core/src/sandbox/sandboxes/docker.ts",
+      "line": 421,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "return spawn('docker', dockerArgs, {",
+          "line": 454
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "return spawn('docker', dockerArgs, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "spawnShellCommand",
+      "file": "agents-core/src/sandbox/sandboxes/unixLocal.ts",
+      "line": 629,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "return spawn(shellPath, [flag, command], {",
+          "line": 666
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "return spawn(shellPath, [flag, command], {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "adaptBlaxelSandbox",
+      "file": "agents-extensions/src/sandbox/blaxel/sandbox.ts",
+      "line": 1297,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "await sandbox.fs.rm(path, recursive);",
+          "line": 1328
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await sandbox.fs.rm(path, recursive);"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "writeMountSecretFile",
+      "file": "agents-extensions/src/sandbox/blaxel/sandbox.ts",
+      "line": 604,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "await this.sandbox.fs.rm(path).catch(() => {});",
+          "line": 617
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.rm(path).catch(() => {});"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "writeRemoteFile",
+      "file": "agents-extensions/src/sandbox/blaxel/sandbox.ts",
+      "line": 677,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "await this.sandbox.fs.rm(tempPath).catch(() => {});",
+          "line": 720
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.rm(tempPath).catch(() => {});"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "writeRemoteTempFile",
+      "file": "agents-extensions/src/sandbox/blaxel/sandbox.ts",
+      "line": 725,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "await this.sandbox.fs.rm(tempPath).catch(() => {});",
+          "line": 738
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.rm(tempPath).catch(() => {});"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "deleteRemotePath",
+      "file": "agents-extensions/src/sandbox/blaxel/sandbox.ts",
+      "line": 747,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "await this.sandbox.fs.rm(path);",
+          "line": 748
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.rm(path);"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "mountBucket",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 496,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 504
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "unmountBucket",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 528,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 532
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "persistWorkspace",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 553,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 559
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "hydrateWorkspace",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 585,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 598
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "close",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 620,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 629
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "execShell",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 711,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 714
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "writeFile",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 901,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await this.fetch(",
+          "line": 902
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await this.fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "create",
+      "file": "agents-extensions/src/sandbox/cloudflare/sandbox.ts",
+      "line": 1026,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "await fetchWithOptionalTimeout(",
+          "line": 1082
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await fetchWithOptionalTimeout("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "adaptDaytonaSandbox",
+      "file": "agents-extensions/src/sandbox/daytona/sandbox.ts",
+      "line": 1331,
+      "side_effects": [
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await sandbox.fs.uploadFile(source, remotePath, timeout);",
+          "line": 1345
+        },
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await sandbox.fs.uploadFile(source, remotePath);",
+          "line": 1347
+        },
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await sandbox.fs.uploadFile(source, remotePath, timeout);",
+          "line": 1352
+        },
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await sandbox.fs.uploadFile(source, remotePath);",
+          "line": 1354
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await sandbox.fs.uploadFile(source, remotePath, timeout);",
+        "await sandbox.fs.uploadFile(source, remotePath);",
+        "await sandbox.fs.uploadFile(source, remotePath, timeout);",
+        "await sandbox.fs.uploadFile(source, remotePath);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02"
+      ]
+    },
+    {
+      "function": "writer",
+      "file": "agents-extensions/src/sandbox/daytona/sandbox.ts",
+      "line": 683,
+      "side_effects": [
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await this.sandbox.fs.uploadFile(Buffer.from(content), path);",
+          "line": 690
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.uploadFile(Buffer.from(content), path);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02"
+      ]
+    },
+    {
+      "function": "materializeMountEntry",
+      "file": "agents-extensions/src/sandbox/daytona/sandbox.ts",
+      "line": 709,
+      "side_effects": [
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await this.sandbox.fs.uploadFile(Buffer.from(content), path);",
+          "line": 736
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.uploadFile(Buffer.from(content), path);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02"
+      ]
+    },
+    {
+      "function": "archiveIo",
+      "file": "agents-extensions/src/sandbox/daytona/sandbox.ts",
+      "line": 802,
+      "side_effects": [
+        {
+          "category": "publish",
+          "risk": 2,
+          "code": "await this.sandbox.fs.uploadFile(Buffer.from(content), path);",
+          "line": 821
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await this.sandbox.fs.uploadFile(Buffer.from(content), path);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no input validation"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02"
+      ]
+    },
+    {
+      "function": "runSandboxProcess",
+      "file": "agents-extensions/src/sandbox/shared/process.ts",
+      "line": 22,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const child = spawn(command, args, {",
+          "line": 40
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const child = spawn(command, args, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "spawnInPseudoTerminal",
+      "file": "agents-core/src/sandbox/sandboxes/shared/pty.ts",
+      "line": 120,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "return spawn(",
+          "line": 139
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "return spawn("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "assertPtyBridgePythonAvailable",
+      "file": "agents-core/src/sandbox/sandboxes/shared/pty.ts",
+      "line": 150,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const result = spawnSync(",
+          "line": 162
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = spawnSync("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "runSandboxProcess",
+      "file": "agents-core/src/sandbox/sandboxes/shared/runProcess.ts",
+      "line": 22,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const child = spawn(command, args, {",
+          "line": 40
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const child = spawn(command, args, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    }
+  ]
+}

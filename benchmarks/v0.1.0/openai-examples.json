@@ -1,0 +1,1438 @@
+{
+  "generated": "2026-05-15T14:28:45.762Z",
+  "version": "0.1.0",
+  "spec_version": "1.0",
+  "path": "/tmp/diplomat-benchmark/openai-agents-js/examples",
+  "language": "typescript",
+  "summary": {
+    "total": 32,
+    "no_checks": 28,
+    "partial_checks": 4,
+    "confirmed": 0
+  },
+  "tool_calls": [
+    {
+      "function": "main",
+      "file": "agent-patterns/streamed.ts",
+      "line": 31,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const storyStream = await runner.run(",
+          "line": 34
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const weatherStream = await runner.run(",
+          "line": 53
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const storyStream = await runner.run(",
+        "const weatherStream = await runner.run("
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "runAgents",
+      "file": "ai-sdk/index.ts",
+      "line": 5,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(",
+          "line": 47
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run("
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "ai-sdk/retry.ts",
+      "line": 10,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(",
+          "line": 74
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run("
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "basic/index.ts",
+      "line": 26,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(",
+          "line": 31
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run("
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "basic/retry.ts",
+      "line": 8,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(",
+          "line": 73
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run("
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "runStreamedTurn",
+      "file": "basic/stream-ws.ts",
+      "line": 118,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "let streamedResult = await runner.run(agent, prompt, {",
+          "line": 126
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "streamedResult = await runner.run(agent, state, { stream: true });",
+          "line": 195
+        }
+      ],
+      "guards": [
+        {
+          "type": "confirmation",
+          "coverage": "full",
+          "code": "const approved = await confirm(",
+          "line": 185
+        },
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (approved)",
+          "line": 188
+        }
+      ],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "partial_checks",
+      "actions": [
+        "let streamedResult = await runner.run(agent, prompt, {",
+        "streamedResult = await runner.run(agent, state, { stream: true });"
+      ],
+      "checks": [
+        {
+          "type": "confirmation",
+          "coverage": "full",
+          "code": "const approved = await confirm(",
+          "line": 185
+        },
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (approved)",
+          "line": 188
+        }
+      ],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "runPrismaCommand",
+      "file": "memory/start-prisma.ts",
+      "line": 6,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const result = spawnSync(pnpmCommand, ['prisma', ...args], {",
+          "line": 7
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = spawnSync(pnpmCommand, ['prisma', ...args], {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "model-providers/custom-example-global.ts",
+      "line": 60,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, \"What's the weather in Tokyo?\");",
+          "line": 69
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, \"What's the weather in Tokyo?\");"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "model-providers/custom-example-provider.ts",
+      "line": 55,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, \"What's the weather in Tokyo?\");",
+          "line": 64
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, \"What's the weather in Tokyo?\");"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "_planSearches",
+      "file": "research-bot/manager.ts",
+      "line": 42,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await this.runner.run(plannerAgent, `Query: ${query}`);",
+          "line": 44
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await this.runner.run(plannerAgent, `Query: ${query}`);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "_search",
+      "file": "research-bot/manager.ts",
+      "line": 73,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await this.runner.run(searchAgent, input);",
+          "line": 76
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await this.runner.run(searchAgent, input);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "_writeReport",
+      "file": "research-bot/manager.ts",
+      "line": 83,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await this.runner.run(writerAgent, input);",
+          "line": 89
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await this.runner.run(writerAgent, input);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/memory-generation.ts",
+      "line": 69,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, TASK_PROMPT, {",
+          "line": 102
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, TASK_PROMPT, {"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "ensureDockerAvailable",
+      "file": "sandbox/support.ts",
+      "line": 71,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const result = spawnSync('docker', ['version'], {",
+          "line": 72
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = spawnSync('docker', ['version'], {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "buildSkillZipBundle",
+      "file": "tools/container-shell-inline-skill.ts",
+      "line": 140,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "await execFileAsync('zip', ['-rq', zipPath, SKILL_BUNDLE_NAME], {",
+          "line": 144
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await execFileAsync('zip', ['-rq', zipPath, SKILL_BUNDLE_NAME], {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "buildSkillZipBundle",
+      "file": "tools/container-shell-skill-ref.ts",
+      "line": 252,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "await execFileAsync('zip', ['-rq', zipPath, SKILL_BUNDLE_NAME], {",
+          "line": 256
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await execFileAsync('zip', ['-rq', zipPath, SKILL_BUNDLE_NAME], {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "openFile",
+      "file": "tools/image-generation.ts",
+      "line": 7,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "spawnSync('open', [filePath], { stdio: 'inherit' });",
+          "line": 9
+        },
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "spawnSync('cmd', ['/c', 'start', '', filePath], { shell: true });",
+          "line": 11
+        },
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "spawnSync('xdg-open', [filePath], { stdio: 'inherit' });",
+          "line": 13
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "spawnSync('open', [filePath], { stdio: 'inherit' });",
+        "spawnSync('cmd', ['/c', 'start', '', filePath], { shell: true });",
+        "spawnSync('xdg-open', [filePath], { stdio: 'inherit' });"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "run",
+      "file": "tools/local-shell.ts",
+      "line": 21,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "const { stdout: localStdout, stderr: localStderr } = await execAsync(",
+          "line": 33
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const { stdout: localStdout, stderr: localStderr } = await execAsync("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "docs/models/openaiProvider.ts",
+      "line": 21,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, 'Hey, I need your help!');",
+          "line": 22
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, 'Hey, I need your help!');"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "clearSession",
+      "file": "memory/sessions/file.ts",
+      "line": 78,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "await fs.unlink(file);",
+          "line": 84
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "await fs.unlink(file);"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/blaxel-runner.ts",
+      "line": 55,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 80
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 85
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/cloudflare-runner.ts",
+      "line": 53,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 79
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 84
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/daytona-runner.ts",
+      "line": 50,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 73
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 78
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/e2b-runner.ts",
+      "line": 67,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 103
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 108
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/modal-runner.ts",
+      "line": 61,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 98
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 103
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/runloop-runner.ts",
+      "line": 52,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 85
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 90
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "main",
+      "file": "sandbox/extensions/vercel-runner.ts",
+      "line": 66,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question);",
+          "line": 96
+        },
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, question, { stream: true });",
+          "line": 101
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(agent, question);",
+        "const result = await runner.run(agent, question, { stream: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "Home",
+      "file": "nextjs/src/app/page.tsx",
+      "line": 8,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await fetch('/api/basic', {",
+          "line": 41
+        }
+      ],
+      "guards": [
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (data.approvals)",
+          "line": 60
+        }
+      ],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "partial_checks",
+      "actions": [
+        "const response = await fetch('/api/basic', {"
+      ],
+      "checks": [
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (data.approvals)",
+          "line": 60
+        }
+      ],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "makeRequest",
+      "file": "nextjs/src/app/page.tsx",
+      "line": 15,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await fetch('/api/basic', {",
+          "line": 41
+        }
+      ],
+      "guards": [
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (data.approvals)",
+          "line": 60
+        }
+      ],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "partial_checks",
+      "actions": [
+        "const response = await fetch('/api/basic', {"
+      ],
+      "checks": [
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (data.approvals)",
+          "line": 60
+        }
+      ],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "handleRefundRequest",
+      "file": "realtime-next/src/app/server/backendAgent.action.tsx",
+      "line": 21,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(backendAgent, input);",
+          "line": 35
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const result = await runner.run(backendAgent, input);"
+      ],
+      "checks": [],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    },
+    {
+      "function": "getToken",
+      "file": "realtime-next/src/app/server/token.action.tsx",
+      "line": 3,
+      "side_effects": [
+        {
+          "category": "http_write",
+          "risk": 2,
+          "code": "const response = await fetch(",
+          "line": 9
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp_agentic": [
+        "ASI-02",
+        "ASI-06"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "const response = await fetch("
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no rate limit"
+      ],
+      "owasp": [
+        "ASI-02",
+        "ASI-06"
+      ]
+    },
+    {
+      "function": "POST",
+      "file": "nextjs/src/app/api/basic/route.ts",
+      "line": 13,
+      "side_effects": [
+        {
+          "category": "agent_invocation",
+          "risk": 2,
+          "code": "const result = await runner.run(agent, input);",
+          "line": 77
+        }
+      ],
+      "guards": [
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (item.type === 'tool_approval_item' && 'callId' in item.rawItem)",
+          "line": 58
+        },
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (decisions[callId] === 'approved')",
+          "line": 61
+        }
+      ],
+      "missing_hints": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ],
+      "status": "partial_checks",
+      "actions": [
+        "const result = await runner.run(agent, input);"
+      ],
+      "checks": [
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (item.type === 'tool_approval_item' && 'callId' in item.rawItem)",
+          "line": 58
+        },
+        {
+          "type": "approval_step",
+          "coverage": "partial",
+          "code": "if (decisions[callId] === 'approved')",
+          "line": 61
+        }
+      ],
+      "missing": [
+        "no auth check",
+        "no retry bound"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-04",
+        "ASI-06",
+        "ASI-10"
+      ]
+    }
+  ]
+}

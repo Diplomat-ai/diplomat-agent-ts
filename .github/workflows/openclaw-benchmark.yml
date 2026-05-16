@@ -15,15 +15,16 @@ on:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
+    continue-on-error: true  # external repo availability must not block CI
     permissions:
       contents: write  # required to upload to release
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.inputs.ref || 'main' }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: "npm"
@@ -34,27 +35,41 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check OpenClaw reachability
+        id: reachability
+        run: |
+          if git ls-remote https://github.com/openclaw/openclaw.git HEAD > /dev/null 2>&1; then
+            echo "reachable=true" >> $GITHUB_OUTPUT
+          else
+            echo "reachable=false" >> $GITHUB_OUTPUT
+            echo "::warning::openclaw repo is unreachable — skipping benchmark"
+          fi
+
       - name: Clone OpenClaw corpus
-        run: git clone --depth 1 https://github.com/Diplomat-ai/openclaw.git /tmp/openclaw
+        if: steps.reachability.outputs.reachable == 'true'
+        run: git clone --depth 1 https://github.com/openclaw/openclaw.git /tmp/openclaw
 
       - name: Scan OpenClaw — JSON report
+        if: steps.reachability.outputs.reachable == 'true'
         run: |
           node dist/cli.js scan /tmp/openclaw \
             --format json \
             --output openclaw-${{ github.ref_name }}.json
 
       - name: Scan OpenClaw — YAML registry
+        if: steps.reachability.outputs.reachable == 'true'
         run: |
           node dist/cli.js scan /tmp/openclaw \
             --output-registry openclaw-${{ github.ref_name }}.yaml
 
       - name: Generate human-readable summary
+        if: steps.reachability.outputs.reachable == 'true'
         run: |
           {
             echo "# OpenClaw benchmark — ${{ github.ref_name }}"
             echo ""
             echo "Scanner: diplomat-agent-ts ${{ github.ref_name }}"
-            echo "Target: Diplomat-ai/openclaw @ main"
+            echo "Target: openclaw/openclaw @ main"
             echo "Date: $(date -u +%Y-%m-%d)"
             echo ""
             echo "## Summary"
@@ -65,7 +80,7 @@ jobs:
           } > openclaw-${{ github.ref_name }}.md
 
       - name: Upload as workflow artifact (always)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: openclaw-benchmark-${{ github.ref_name }}
           path: |
@@ -76,7 +91,7 @@ jobs:
 
       - name: Upload to GitHub Release page
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             openclaw-${{ github.ref_name }}.json

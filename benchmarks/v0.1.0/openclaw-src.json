@@ -1,12 +1,12 @@
 {
-  "generated": "2026-05-15T11:53:14.039Z",
+  "generated": "2026-05-15T14:21:46.884Z",
   "version": "0.1.0",
   "spec_version": "1.0",
-  "path": "/Users/josselin/dev/diplomat-openclaw-main/src",
+  "path": "/tmp/diplomat-benchmark/openclaw/src",
   "language": "typescript",
   "summary": {
-    "total": 418,
-    "no_checks": 331,
+    "total": 419,
+    "no_checks": 332,
     "partial_checks": 87,
     "confirmed": 0
   },
@@ -2731,19 +2731,19 @@
     {
       "function": "writeClaudeCliKeychainCredentials",
       "file": "agents/cli-credentials.ts",
-      "line": 482,
+      "line": 483,
       "side_effects": [
         {
           "category": "destructive",
           "risk": 3,
           "code": "const existingResult = execFileSyncImpl(",
-          "line": 488
+          "line": 489
         },
         {
           "category": "destructive",
           "risk": 3,
           "code": "execFileSyncImpl(",
-          "line": 511
+          "line": 512
         }
       ],
       "guards": [],
@@ -3438,6 +3438,43 @@
       ]
     },
     {
+      "function": "startAndWaitForLocalService",
+      "file": "agents/provider-local-service.ts",
+      "line": 223,
+      "side_effects": [
+        {
+          "category": "destructive",
+          "risk": 3,
+          "code": "managed.process = spawn(service.command, service.args ?? [], {",
+          "line": 241
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "managed.process = spawn(service.command, service.args ?? [], {"
+      ],
+      "checks": [],
+      "missing": [
+        "no input validation",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
       "function": "removeReportedStaleLockIfStillStale",
       "file": "agents/session-write-lock.ts",
       "line": 458,
@@ -3837,7 +3874,7 @@
           "category": "destructive",
           "risk": 3,
           "code": "buildExecApprovalPromptGuidance({",
-          "line": 1039
+          "line": 1038
         }
       ],
       "guards": [
@@ -3851,7 +3888,7 @@
           "type": "input_validation",
           "coverage": "partial",
           "code": "if (!isMinimal && silentReplyPromptMode !== \"none\")",
-          "line": 1193
+          "line": 1184
         }
       ],
       "missing_hints": [
@@ -3877,7 +3914,7 @@
           "type": "input_validation",
           "coverage": "partial",
           "code": "if (!isMinimal && silentReplyPromptMode !== \"none\")",
-          "line": 1193
+          "line": 1184
         }
       ],
       "missing": [
@@ -10597,13 +10634,13 @@
     {
       "function": "withTempHeartbeatSandbox",
       "file": "infra/heartbeat-runner.test-utils.ts",
-      "line": 67,
+      "line": 69,
       "side_effects": [
         {
           "category": "file_delete",
           "risk": 3,
           "code": "await fs.rm(tmpDir, { recursive: true, force: true });",
-          "line": 94
+          "line": 96
         }
       ],
       "guards": [
@@ -10611,7 +10648,7 @@
           "type": "input_validation",
           "coverage": "partial",
           "code": "if (previousValue === undefined)",
-          "line": 88
+          "line": 90
         }
       ],
       "missing_hints": [
@@ -10632,7 +10669,7 @@
           "type": "input_validation",
           "coverage": "partial",
           "code": "if (previousValue === undefined)",
-          "line": 88
+          "line": 90
         }
       ],
       "missing": [
@@ -14378,41 +14415,6 @@
       ]
     },
     {
-      "function": "probeZaiChatCompletions",
-      "file": "plugins/provider-zai-endpoint.ts",
-      "line": 29,
-      "side_effects": [
-        {
-          "category": "http_write",
-          "risk": 2,
-          "code": "const res = await fetchWithTimeout(",
-          "line": 37
-        }
-      ],
-      "guards": [],
-      "missing_hints": [
-        "no input validation",
-        "no rate limit"
-      ],
-      "owasp_agentic": [
-        "ASI-02",
-        "ASI-06"
-      ],
-      "status": "no_checks",
-      "actions": [
-        "const res = await fetchWithTimeout("
-      ],
-      "checks": [],
-      "missing": [
-        "no input validation",
-        "no rate limit"
-      ],
-      "owasp": [
-        "ASI-02",
-        "ASI-06"
-      ]
-    },
-    {
       "function": "createPluginRegistry",
       "file": "plugins/registry.ts",
       "line": 319,
@@ -16181,15 +16183,52 @@
       ]
     },
     {
+      "function": "acquireAuthStoreLockSync",
+      "file": "agents/auth-profiles/store.ts",
+      "line": 208,
+      "side_effects": [
+        {
+          "category": "file_delete",
+          "risk": 3,
+          "code": "fs.rmSync(lockPath, { force: true });",
+          "line": 227
+        }
+      ],
+      "guards": [],
+      "missing_hints": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp_agentic": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ],
+      "status": "no_checks",
+      "actions": [
+        "fs.rmSync(lockPath, { force: true });"
+      ],
+      "checks": [],
+      "missing": [
+        "no confirmation step",
+        "no auth check"
+      ],
+      "owasp": [
+        "ASI-01",
+        "ASI-02",
+        "ASI-03"
+      ]
+    },
+    {
       "function": "loadAuthProfileStoreForAgent",
       "file": "agents/auth-profiles/store.ts",
-      "line": 355,
+      "line": 499,
       "side_effects": [
         {
           "category": "file_delete",
           "risk": 3,
           "code": "fs.unlinkSync(legacyPath);",
-          "line": 409
+          "line": 558
         }
       ],
       "guards": [
@@ -16197,103 +16236,115 @@
           "type": "auth_check",
           "coverage": "full",
           "code": "const authPath = resolveAuthStorePath(agentDir);",
-          "line": 360
+          "line": 504
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const statePath = resolveAuthStatePath(agentDir);",
-          "line": 361
+          "line": 505
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const authMtimeMs = readAuthStoreMtimeMs(authPath);",
-          "line": 362
+          "line": 506
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const stateMtimeMs = readAuthStoreMtimeMs(statePath);",
-          "line": 363
+          "line": 507
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const cached = readCachedAuthProfileStore({",
-          "line": 365
+          "line": 509
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const asStore = loadPersistedAuthProfileStore(agentDir);",
-          "line": 374
+          "line": 518
+        },
+        {
+          "type": "auth_check",
+          "coverage": "full",
+          "code": "const synced = maybeSyncPersistedExternalCliAuthProfiles({",
+          "line": 520
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "writeCachedAuthProfileStore({",
-          "line": 377
+          "line": 526
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "authMtimeMs: readAuthStoreMtimeMs(authPath),",
-          "line": 379
+          "line": 528
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "stateMtimeMs: readAuthStoreMtimeMs(statePath),",
-          "line": 380
+          "line": 529
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const legacy = loadLegacyAuthProfileStore(agentDir);",
-          "line": 387
+          "line": 536
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "applyLegacyAuthStore(store, legacy);",
-          "line": 393
+          "line": 542
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const mergedOAuth = mergeOAuthFileIntoStore(store);",
-          "line": 396
+          "line": 545
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "saveAuthProfileStore(store, agentDir);",
-          "line": 400
+          "line": 549
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const legacyPath = resolveLegacyAuthStorePath(agentDir);",
-          "line": 407
+          "line": 556
+        },
+        {
+          "type": "auth_check",
+          "coverage": "full",
+          "code": "const synced = maybeSyncPersistedExternalCliAuthProfiles({",
+          "line": 569
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "writeCachedAuthProfileStore({",
-          "line": 421
+          "line": 576
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "authMtimeMs: readAuthStoreMtimeMs(authPath),",
-          "line": 423
+          "line": 578
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "stateMtimeMs: readAuthStoreMtimeMs(statePath),",
-          "line": 424
+          "line": 579
         }
       ],
       "missing_hints": [
@@ -16312,103 +16363,115 @@
           "type": "auth_check",
           "coverage": "full",
           "code": "const authPath = resolveAuthStorePath(agentDir);",
-          "line": 360
+          "line": 504
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const statePath = resolveAuthStatePath(agentDir);",
-          "line": 361
+          "line": 505
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const authMtimeMs = readAuthStoreMtimeMs(authPath);",
-          "line": 362
+          "line": 506
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const stateMtimeMs = readAuthStoreMtimeMs(statePath);",
-          "line": 363
+          "line": 507
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const cached = readCachedAuthProfileStore({",
-          "line": 365
+          "line": 509
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const asStore = loadPersistedAuthProfileStore(agentDir);",
-          "line": 374
+          "line": 518
+        },
+        {
+          "type": "auth_check",
+          "coverage": "full",
+          "code": "const synced = maybeSyncPersistedExternalCliAuthProfiles({",
+          "line": 520
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "writeCachedAuthProfileStore({",
-          "line": 377
+          "line": 526
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "authMtimeMs: readAuthStoreMtimeMs(authPath),",
-          "line": 379
+          "line": 528
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "stateMtimeMs: readAuthStoreMtimeMs(statePath),",
-          "line": 380
+          "line": 529
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const legacy = loadLegacyAuthProfileStore(agentDir);",
-          "line": 387
+          "line": 536
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "applyLegacyAuthStore(store, legacy);",
-          "line": 393
+          "line": 542
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const mergedOAuth = mergeOAuthFileIntoStore(store);",
-          "line": 396
+          "line": 545
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "saveAuthProfileStore(store, agentDir);",
-          "line": 400
+          "line": 549
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "const legacyPath = resolveLegacyAuthStorePath(agentDir);",
-          "line": 407
+          "line": 556
+        },
+        {
+          "type": "auth_check",
+          "coverage": "full",
+          "code": "const synced = maybeSyncPersistedExternalCliAuthProfiles({",
+          "line": 569
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "writeCachedAuthProfileStore({",
-          "line": 421
+          "line": 576
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "authMtimeMs: readAuthStoreMtimeMs(authPath),",
-          "line": 423
+          "line": 578
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "stateMtimeMs: readAuthStoreMtimeMs(statePath),",
-          "line": 424
+          "line": 579
         }
       ],
       "missing": [
@@ -16666,13 +16729,13 @@
     {
       "function": "consumeEmbeddedRunModelSwitch",
       "file": "agents/pi-embedded-runner/runs.ts",
-      "line": 236,
+      "line": 294,
       "side_effects": [
         {
           "category": "http_write",
           "risk": 2,
           "code": "EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.delete(normalizedSessionId);",
-          "line": 245
+          "line": 303
         }
       ],
       "guards": [],
@@ -16701,13 +16764,13 @@
     {
       "function": "clearActiveEmbeddedRun",
       "file": "agents/pi-embedded-runner/runs.ts",
-      "line": 389,
+      "line": 447,
       "side_effects": [
         {
           "category": "http_write",
           "risk": 2,
           "code": "EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.delete(sessionId);",
-          "line": 397
+          "line": 455
         }
       ],
       "guards": [],
@@ -16736,13 +16799,13 @@
     {
       "function": "forceClearEmbeddedPiRun",
       "file": "agents/pi-embedded-runner/runs.ts",
-      "line": 410,
+      "line": 468,
       "side_effects": [
         {
           "category": "http_write",
           "risk": 2,
           "code": "EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.delete(sessionId);",
-          "line": 419
+          "line": 477
         }
       ],
       "guards": [],
@@ -18808,13 +18871,13 @@
     {
       "function": "describeZAIProviderRuntimeContract",
       "file": "plugin-sdk/test-helpers/provider-runtime-contract.ts",
-      "line": 751,
+      "line": 761,
       "side_effects": [
         {
           "category": "file_delete",
           "risk": 3,
           "code": "await fs.rm(home, { recursive: true, force: true });",
-          "line": 826
+          "line": 836
         }
       ],
       "guards": [
@@ -18822,19 +18885,19 @@
           "type": "auth_check",
           "coverage": "full",
           "code": "provider.resolveUsageAuth?.({",
-          "line": 789
+          "line": 799
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "provider.resolveUsageAuth?.({",
-          "line": 815
+          "line": 825
         },
         {
           "type": "input_validation",
           "coverage": "partial",
           "code": "if (url.includes(\"api.z.ai/api/monitor/usage/quota/limit\"))",
-          "line": 833
+          "line": 843
         }
       ],
       "missing_hints": [
@@ -18853,19 +18916,19 @@
           "type": "auth_check",
           "coverage": "full",
           "code": "provider.resolveUsageAuth?.({",
-          "line": 789
+          "line": 799
         },
         {
           "type": "auth_check",
           "coverage": "full",
           "code": "provider.resolveUsageAuth?.({",
-          "line": 815
+          "line": 825
         },
         {
           "type": "input_validation",
           "coverage": "partial",
           "code": "if (url.includes(\"api.z.ai/api/monitor/usage/quota/limit\"))",
-          "line": 833
+          "line": 843
         }
       ],
       "missing": [
@@ -19235,13 +19298,13 @@
     {
       "function": "cleanupTempPaths",
       "file": "agents/pi-embedded-runner/run/attempt.spawn-workspace.test-support.ts",
-      "line": 953,
+      "line": 952,
       "side_effects": [
         {
           "category": "file_delete",
           "risk": 3,
           "code": "await fs.rm(target, { recursive: true, force: true });",
-          "line": 957
+          "line": 956
         }
       ],
       "guards": [],

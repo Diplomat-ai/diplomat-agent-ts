@@ -9,21 +9,32 @@
 #   Protected elsewhere → add  # checked:ok — protected by [middleware/gateway/etc]
 #   CI enforcement → --fail-on-unchecked blocks PRs with new unreviewed tool calls
 
-generated: "2026-05-15T11:53:39.240Z"
+generated: "2026-05-15T14:21:55.053Z"
 version: "0.1.0"
 spec_version: "1.0"
-path: "/Users/josselin/dev/diplomat-openclaw-main/src"
+path: "/tmp/diplomat-benchmark/openclaw/src"
 language: typescript
 
 summary:
-  total: 418
-  no_checks: 331
+  total: 419
+  no_checks: 332
   partial_checks: 87
   confirmed: 0
 
 tool_calls:
 
   # ⚠ NO CHECKS — database_delete / file_delete
+  - function: acquireAuthStoreLockSync
+    file: agents/auth-profiles/store.ts
+    line: 208
+    actions:
+      - "fs.rmSync(lockPath, { force: true });"
+    checks: []
+    missing:
+      - no confirmation step
+      - no auth check
+    owasp: [ASI-01, ASI-02, ASI-03]
+
   - function: acquireClobberLock
     file: config/io.clobber-snapshot.ts
     line: 73
@@ -272,7 +283,7 @@ tool_calls:
 
   - function: cleanupTempPaths
     file: agents/pi-embedded-runner/run/attempt.spawn-workspace.test-support.ts
-    line: 953
+    line: 952
     actions:
       - "await fs.rm(target, { recursive: true, force: true });"
     checks: []
@@ -1684,7 +1695,7 @@ tool_calls:
 
   - function: clearActiveEmbeddedRun
     file: agents/pi-embedded-runner/runs.ts
-    line: 389
+    line: 447
     actions:
       - EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.delete(sessionId);
     checks: []
@@ -1740,7 +1751,7 @@ tool_calls:
 
   - function: consumeEmbeddedRunModelSwitch
     file: agents/pi-embedded-runner/runs.ts
-    line: 236
+    line: 294
     actions:
       - EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.delete(normalizedSessionId);
     checks: []
@@ -2072,7 +2083,7 @@ tool_calls:
 
   - function: forceClearEmbeddedPiRun
     file: agents/pi-embedded-runner/runs.ts
-    line: 410
+    line: 468
     actions:
       - EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.delete(sessionId);
     checks: []
@@ -2599,17 +2610,6 @@ tool_calls:
       - no input validation
       - no auth check
     owasp: [ASI-01, ASI-02, ASI-03]
-
-  - function: probeZaiChatCompletions
-    file: plugins/provider-zai-endpoint.ts
-    line: 29
-    actions:
-      - "const res = await fetchWithTimeout("
-    checks: []
-    missing:
-      - no input validation
-      - no rate limit
-    owasp: [ASI-02, ASI-06]
 
   - function: pruneExpiredExecApprovalFollowupRuntimeHandoffs
     file: agents/bash-tools.exec-approval-followup-state.ts
@@ -3616,6 +3616,17 @@ tool_calls:
       - no auth check
     owasp: [ASI-01, ASI-02, ASI-03]
 
+  - function: startAndWaitForLocalService
+    file: agents/provider-local-service.ts
+    line: 223
+    actions:
+      - "managed.process = spawn(service.command, service.args ?? [], {"
+    checks: []
+    missing:
+      - no input validation
+      - no auth check
+    owasp: [ASI-01, ASI-02, ASI-03]
+
   - function: startSshPortForward
     file: infra/ssh-tunnel.ts
     line: 103
@@ -3746,7 +3757,7 @@ tool_calls:
 
   - function: writeClaudeCliKeychainCredentials
     file: agents/cli-credentials.ts
-    line: 482
+    line: 483
     actions:
       - "const existingResult = execFileSyncImpl("
       - execFileSyncImpl(
@@ -4235,7 +4246,7 @@ tool_calls:
 
   - function: describeZAIProviderRuntimeContract
     file: plugin-sdk/test-helpers/provider-runtime-contract.ts
-    line: 751
+    line: 761
     actions:
       - "await fs.rm(home, { recursive: true, force: true });"
     checks:
@@ -4568,7 +4579,7 @@ tool_calls:
 
   - function: loadAuthProfileStoreForAgent
     file: agents/auth-profiles/store.ts
-    line: 355
+    line: 499
     actions:
       - fs.unlinkSync(legacyPath);
     checks:
@@ -4585,6 +4596,8 @@ tool_calls:
       - type: auth_check
         code: "const asStore = loadPersistedAuthProfileStore(agentDir);"
       - type: auth_check
+        code: "const synced = maybeSyncPersistedExternalCliAuthProfiles({"
+      - type: auth_check
         code: "writeCachedAuthProfileStore({"
       - type: auth_check
         code: "authMtimeMs: readAuthStoreMtimeMs(authPath),"
@@ -4600,6 +4613,8 @@ tool_calls:
         code: "saveAuthProfileStore(store, agentDir);"
       - type: auth_check
         code: "const legacyPath = resolveLegacyAuthStorePath(agentDir);"
+      - type: auth_check
+        code: "const synced = maybeSyncPersistedExternalCliAuthProfiles({"
       - type: auth_check
         code: "writeCachedAuthProfileStore({"
       - type: auth_check
@@ -5198,7 +5213,7 @@ tool_calls:
 
   - function: withTempHeartbeatSandbox
     file: infra/heartbeat-runner.test-utils.ts
-    line: 67
+    line: 69
     actions:
       - "await fs.rm(tmpDir, { recursive: true, force: true });"
     checks:

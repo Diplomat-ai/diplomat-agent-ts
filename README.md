@@ -4,7 +4,7 @@
 [![Node 20+](https://img.shields.io/badge/node-%3E%3D20-3FB950?style=flat-square)](https://nodejs.org)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-6E7681?style=flat-square)](LICENSE)
 [![OWASP Agentic](https://img.shields.io/badge/OWASP-Agentic_Top_10-E3B341?style=flat-square)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-[![CI](https://img.shields.io/github/actions/workflow/status/Diplomat-ai/diplomat-agent-ts/ci.yml?style=flat-square&label=CI&color=3FB950)](https://github.com/Diplomat-ai/diplomat-agent-ts/actions)
+[![CI](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml)
 
 > **You shipped a TypeScript AI agent. Do you know every function it can call that writes to a database, sends an email, charges a card, or deletes data — and which ones have zero checks?**
 
@@ -33,7 +33,7 @@ In an agent, an LLM decides which functions to call, with what arguments, how ma
 
 **Without guards in the code, there's nothing between the LLM's decision and the real-world consequence.**
 
-We scanned the [OpenClaw](https://github.com/Diplomat-ai/openclaw) agent codebase (7,882 TypeScript files, ~5s on M-series). **418 tool calls had real side effects. 331 of them (79%) had zero checks.** Not a single one was confirmed.
+We scanned the [OpenClaw](https://github.com/openclaw/openclaw) agent codebase (7,874 TypeScript files, ~9s on M-series). **419 tool calls had real side effects. 332 of them (79%) had zero checks.** Not a single one was confirmed.
 
 ## What it detects
 
@@ -156,7 +156,7 @@ Spec → [`docs/toolcalls-yaml-spec.md`](./docs/toolcalls-yaml-spec.md)
 
 ## OWASP Agentic Top 10 mapping
 
-Every flagged finding is tagged with one or more codes from the OWASP Agentic Security Initiative Top 10:
+Each finding is tagged with one or more relevant codes from the OWASP Agentic Security Initiative Top 10. The v0.1.0 catalog covers the codes most directly tied to static side-effect detection (ASI-01, ASI-02, ASI-03, ASI-04, ASI-05, ASI-06, ASI-10). Codes that require runtime context (ASI-07 supply chain, ASI-08 misalignment, ASI-09 deception) are out of scope for static analysis — they are covered by [diplomat-gate](https://github.com/Diplomat-ai/diplomat-gate) and [diplomat.run](https://diplomat.run) at runtime.
 
 | Code | Risk | When it fires |
 |---|---|---|
@@ -182,17 +182,29 @@ Three pure stages, no shared state. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) f
 
 Real codebases, real numbers:
 
-| Repo | TS files | Tool calls | No checks | Partial | Time |
+| Codebase (scope) | Type | TS files | Tool calls | `no_checks` | `partial` |
 |---|---|---|---|---|---|
-| [OpenClaw](https://github.com/Diplomat-ai/openclaw) (`src/`) | 7,882 | 418 | 331 (79%) | 87 (21%) | ~5s |
-| [OpenClaw](https://github.com/Diplomat-ai/openclaw) (`src/agents/`) | 1,565 | 102 | 78 (76%) | 24 (24%) | ~2s |
-| [Mastra](https://github.com/mastra-ai/mastra) (`packages/`) | 2,787 | 185 | 162 (88%) | 23 (12%) | ~5s |
+| **OpenClaw** (`src/`) | Application | 7,874 | 419 | 332 (79%) | 87 |
+| Mastra (`packages/`) | Framework | 2,777 | 185 | 162 (88%) | 23 |
+| OpenAI Agents JS (`packages/`) | Framework | 426 | 33 | 31 (94%) | 2 |
+| OpenAI Agents JS (`examples/`) | Examples | 302 | 32 | 28 (88%) | 4 |
 
 Run the benchmarks yourself:
 
 ```bash
-git clone https://github.com/Diplomat-ai/openclaw /tmp/openclaw
-npx -y @diplomat-ai/diplomat-agent-ts scan /tmp/openclaw/src --format json | jq .summary
+# Application — OpenClaw (pinned commit for reproducibility)
+git clone https://github.com/openclaw/openclaw /tmp/openclaw
+cd /tmp/openclaw && git checkout 49d9996d && cd -
+diplomat-agent-ts scan /tmp/openclaw/src
+
+# Framework — Mastra
+git clone --depth 1 https://github.com/mastra-ai/mastra /tmp/mastra
+diplomat-agent-ts scan /tmp/mastra/packages
+
+# Framework + Examples — OpenAI Agents JS
+git clone --depth 1 https://github.com/openai/openai-agents-js /tmp/openai-agents
+diplomat-agent-ts scan /tmp/openai-agents/packages
+diplomat-agent-ts scan /tmp/openai-agents/examples
 ```
 
 ## Output formats
@@ -234,8 +246,8 @@ Full limitations and pattern refinement history → [`docs/limitations.md`](./do
 ## Sibling projects
 
 - [**diplomat-agent**](https://github.com/Diplomat-ai/diplomat-agent) — the original Python scanner
-- **diplomat-gate** — runtime governance: `CONTINUE` / `REVIEW` / `STOP` decisions in < 1ms
-- **diplomat.run** — hosted control plane with hash-chained audit trail
+- [diplomat-gate](https://github.com/Diplomat-ai/diplomat-gate) — runtime enforcement (CONTINUE / REVIEW / STOP in < 1ms)
+- [diplomat.run](https://diplomat.run) — hosted control plane with hash-chained audit trail
 
 ## Contributing
 

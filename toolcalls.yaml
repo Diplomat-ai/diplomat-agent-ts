@@ -9,31 +9,16 @@
 #   Protected elsewhere → add  # checked:ok — protected by [middleware/gateway/etc]
 #   CI enforcement → --fail-on-unchecked blocks PRs with new unreviewed tool calls
 
-generated: "2026-05-10T19:00:16.274Z"
+generated: "2026-05-18T06:06:18.336Z"
 version: "0.1.0"
 spec_version: "1.0"
-path: "/Users/josselin/dev/diplomat-agent-ts/tests/fixtures/unguarded-payment-stripe"
+path: "./src"
 language: typescript
 
 summary:
-  total: 1
-  no_checks: 1
+  total: 0
+  no_checks: 0
   partial_checks: 0
   confirmed: 0
 
 tool_calls:
-
-  # ⚠ NO CHECKS — payment
-  - function: chargeCustomer
-    file: index.ts
-    line: 5
-    actions:
-      - "return stripe.charges.create({ amount, currency: \"usd\", customer: customerId });"
-    checks: []
-    missing:
-      - no bounds on amount
-      - no rate limit
-      - no auth check
-      - no idempotency key
-    owasp: [ASI-01, ASI-02, ASI-03, ASI-06]
-

@@ -10,9 +10,10 @@
  */
 
 import fs from "node:fs";
+import { realpathSync } from "node:fs";
 import path from "node:path";
 import process from "node:process";
-import { URL } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { scan } from "./scanner/ast-scanner.js";
 import { applyMissingHintsToAll } from "./analyzer/checks.js";
 import { applyOwasp } from "./analyzer/owasp.js";
@@ -247,10 +248,19 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
   return summary.noChecks > 0 && args.failOnUnchecked ? 1 : 0;
 }
 
-// Run when executed directly (ESM __filename check)
+// Run when executed directly (ESM __filename check).
+// Compare realpaths so we trigger for any invocation that resolves to this
+// module — direct `node dist/cli.js`, npx, global install, node_modules/.bin
+// shims — without false negatives from bin-name aliases like `diplomat-agent-ts`.
 const isMain =
   process.argv[1] !== undefined &&
-  (process.argv[1].endsWith("cli.js") || process.argv[1].endsWith("cli.ts"));
+  (() => {
+    try {
+      return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(process.argv[1]);
+    } catch {
+      return false;
+    }
+  })();
 
 if (isMain) {
   main().then(
