@@ -1,10 +1,20 @@
 # diplomat-agent-ts
 
+<p align="center">
+  <a href="https://github.com/Diplomat-ai/diplomat-agent-ts/discussions">Discussions</a> ·
+  <a href="https://github.com/Diplomat-ai/diplomat-agent-ts/blob/main/CONTRIBUTING.md">Contributing</a> ·
+  <a href="https://github.com/Diplomat-ai/diplomat-agent-ts/blob/main/CHANGELOG.md">Changelog</a> ·
+  <a href="https://github.com/Diplomat-ai/diplomat-agent-ts/issues">Issues</a>
+</p>
+
 [![npm version](https://img.shields.io/npm/v/@diplomat-ai/diplomat-agent-ts?style=flat-square&color=0969da&label=npm)](https://www.npmjs.com/package/@diplomat-ai/diplomat-agent-ts)
+[![CI](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml)
+<!-- downloads badge — uncomment after first npm publish
+[![npm downloads](https://img.shields.io/npm/dm/@diplomat-ai/diplomat-agent-ts?style=flat-square&label=downloads)](https://www.npmjs.com/package/@diplomat-ai/diplomat-agent-ts)
+-->
 [![Node 20+](https://img.shields.io/badge/node-%3E%3D20-3FB950?style=flat-square)](https://nodejs.org)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-6E7681?style=flat-square)](LICENSE)
 [![OWASP Agentic](https://img.shields.io/badge/OWASP-Agentic_Top_10-E3B341?style=flat-square)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-[![CI](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml)
 
 > **You shipped a TypeScript AI agent. Do you know every function it can call that writes to a database, sends an email, charges a card, or deletes data — and which ones have zero checks?**
 
@@ -248,6 +258,13 @@ Full limitations and pattern refinement history → [`docs/limitations.md`](./do
 - [**diplomat-agent**](https://github.com/Diplomat-ai/diplomat-agent) — the original Python scanner
 - [diplomat-gate](https://github.com/Diplomat-ai/diplomat-gate) — runtime enforcement (CONTINUE / REVIEW / STOP in < 1ms)
 - [diplomat.run](https://diplomat.run) — hosted control plane with hash-chained audit trail
+
+## Community & support
+
+- **Questions and ideas** → [GitHub Discussions](https://github.com/Diplomat-ai/diplomat-agent-ts/discussions)
+- **Bug or false positive** → [open an issue](https://github.com/Diplomat-ai/diplomat-agent-ts/issues/new?template=bug_report.yml)
+- **New pattern request** → [pattern request template](https://github.com/Diplomat-ai/diplomat-agent-ts/issues/new?template=pattern_request.yml)
+- **Security vulnerability** → see [SECURITY.md](./SECURITY.md)
 
 ## Contributing
 
