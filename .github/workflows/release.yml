@@ -40,6 +40,7 @@ jobs:
           fi
 
       - name: Create GitHub Release
+        continue-on-error: true  # skip if release already exists
         uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: false
@@ -60,6 +61,7 @@ jobs:
             ```
 
       - name: Publish to npm
+        continue-on-error: true  # skip if version already published
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
