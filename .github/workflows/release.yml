@@ -63,3 +63,32 @@ jobs:
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-pypi:
+    runs-on: ubuntu-latest
+    needs: release
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install hatchling and twine
+        run: pip install hatchling twine --quiet
+
+      - name: Build Python wheel
+        run: |
+          cd python
+          python -m hatchling build
+
+      - name: Publish to PyPI
+        run: |
+          cd python
+          python -m twine upload dist/* --non-interactive
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
