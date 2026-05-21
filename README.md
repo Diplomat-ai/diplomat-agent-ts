@@ -9,9 +9,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@diplomat-ai/diplomat-agent-ts?style=flat-square&color=0969da&label=npm)](https://www.npmjs.com/package/@diplomat-ai/diplomat-agent-ts)
 [![CI](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Diplomat-ai/diplomat-agent-ts/actions/workflows/ci.yml)
-<!-- downloads badge — uncomment after first npm publish
 [![npm downloads](https://img.shields.io/npm/dm/@diplomat-ai/diplomat-agent-ts?style=flat-square&label=downloads)](https://www.npmjs.com/package/@diplomat-ai/diplomat-agent-ts)
--->
 [![Node 20+](https://img.shields.io/badge/node-%3E%3D20-3FB950?style=flat-square)](https://nodejs.org)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-6E7681?style=flat-square)](LICENSE)
 [![OWASP Agentic](https://img.shields.io/badge/OWASP-Agentic_Top_10-E3B341?style=flat-square)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
@@ -22,7 +20,8 @@
 
 ```bash
 npm install -D @diplomat-ai/diplomat-agent-ts
-npx diplomat-agent-ts scan ./src
+npx diplomat-agent-ts scan .        # scan from project root
+npx diplomat-agent-ts scan ./src    # or a specific subdirectory
 ```
 
 <p align="center">
@@ -69,17 +68,21 @@ We scanned the [OpenClaw](https://github.com/openclaw/openclaw) agent codebase (
 ## Quick start
 
 ```bash
-# Scan a directory
+# Scan from your project root (default: current directory)
+diplomat-agent-ts scan .
+
+# Or a specific subdirectory
 diplomat-agent-ts scan ./src
+diplomat-agent-ts scan ./packages
 
 # Generate the toolcalls.yaml SBOM (commit this)
-diplomat-agent-ts scan ./src --output-registry toolcalls.yaml
+diplomat-agent-ts scan . --output-registry toolcalls.yaml
 
 # Fail CI when new unguarded tool calls appear
-diplomat-agent-ts scan ./src --fail-on-unchecked
+diplomat-agent-ts scan . --fail-on-unchecked
 
 # JSON output for IDE agents, automation, custom dashboards
-diplomat-agent-ts scan ./src --format json
+diplomat-agent-ts scan . --format json
 ```
 
 The scanner emits:
@@ -94,7 +97,7 @@ The scanner emits:
 ```yaml
 # .github/workflows/diplomat.yml
 - name: Diplomat governance scan
-  run: npx -y @diplomat-ai/diplomat-agent-ts scan ./src --fail-on-unchecked
+  run: npx -y @diplomat-ai/diplomat-agent-ts scan . --fail-on-unchecked
 ```
 
 Exit code `1` if any tool call has `no_checks` status. Exit `0` otherwise — even if `partial_checks` exist (they're warnings, not blockers).
@@ -108,7 +111,7 @@ repos:
     hooks:
       - id: diplomat-agent-ts
         name: diplomat governance scan
-        entry: npx -y @diplomat-ai/diplomat-agent-ts scan ./src --fail-on-unchecked
+        entry: npx -y @diplomat-ai/diplomat-agent-ts scan . --fail-on-unchecked
         language: system
         pass_filenames: false
 ```
@@ -117,7 +120,9 @@ repos:
 
 The scanner runs locally in under 10 seconds on typical agent codebases. Ask Claude Code, Copilot, or Cursor to run it after generating tool-calling code:
 
-> "Run `diplomat-agent-ts scan ./src` and fix any unguarded tool calls."
+> "Run `diplomat-agent-ts scan .` and fix any unguarded tool calls."
+
+> **Note:** AI agents (Claude Code, Copilot, Cursor) may summarize scan output inaccurately when the result is long. Always read the raw stdout — or pipe to a file with `--output report.txt` and read that.
 
 ## Acknowledge a tool call
 
@@ -205,16 +210,16 @@ Run the benchmarks yourself:
 # Application — OpenClaw (pinned commit for reproducibility)
 git clone https://github.com/openclaw/openclaw /tmp/openclaw
 cd /tmp/openclaw && git checkout 49d9996d && cd -
-diplomat-agent-ts scan /tmp/openclaw/src
+npx diplomat-agent-ts scan /tmp/openclaw/src
 
 # Framework — Mastra
 git clone --depth 1 https://github.com/mastra-ai/mastra /tmp/mastra
-diplomat-agent-ts scan /tmp/mastra/packages
+npx diplomat-agent-ts scan /tmp/mastra/packages
 
 # Framework + Examples — OpenAI Agents JS
 git clone --depth 1 https://github.com/openai/openai-agents-js /tmp/openai-agents
-diplomat-agent-ts scan /tmp/openai-agents/packages
-diplomat-agent-ts scan /tmp/openai-agents/examples
+npx diplomat-agent-ts scan /tmp/openai-agents/packages
+npx diplomat-agent-ts scan /tmp/openai-agents/examples
 ```
 
 ## Output formats
@@ -229,8 +234,10 @@ diplomat-agent-ts scan /tmp/openai-agents/examples
 
 - **Static analysis only** — no runtime detection. If a guard is added by middleware or a gateway outside the file, annotate with `// checked:ok — protected by [where]`.
 - **Intra-procedural** — guard detection looks at the same function or its immediate decorators. Cross-file guard chains require an annotation.
-- **TypeScript / JavaScript only** — for Python agents, use [diplomat-agent](https://github.com/Diplomat-ai/diplomat-agent).
+- **TypeScript files only** — `.ts` and `.tsx` files are scanned. Plain `.js` files are skipped silently. For Python agents, use [diplomat-agent](https://github.com/Diplomat-ai/diplomat-agent). The scanner emits a warning if no `.ts` files are found in the target directory.
 - **ORM patterns require the import** — Mongoose, Sequelize, and TypeORM use generic method names (`.save()`, `.create()`), so the patterns are scoped to files that import the ORM. Re-exported models may be missed.
+- **Abstraction layers** — if a repo wraps its ORM or HTTP client behind a custom module (e.g. `db.ts` re-exporting Prisma without a direct `import 'prisma'`), call sites in consumers won't carry the `importContains` scope and may be missed. Use `// checked:ok` at the wrapper boundary.
+- **Large repos without tsconfig** — scanning 5,000+ files without a `tsconfig.json` can take 30–60 s on slower machines (9 s on M-series for 7,874 files). Point at a subdirectory (`scan ./src`) to reduce scope.
 
 Full limitations and pattern refinement history → [`docs/limitations.md`](./docs/limitations.md)
 
