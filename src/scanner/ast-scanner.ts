@@ -52,7 +52,10 @@ export interface ScanOptions {
  * Mirrors `scan_directory()` in ast_scanner.py.
  */
 export async function scan(options: ScanOptions): Promise<Tool[]> {
-  const rootPath = path.resolve(options.path);
+  // Normalize to forward slashes so that startsWith() works on Windows,
+  // where path.resolve() returns backslashes but ts-morph getFilePath()
+  // always returns forward-slash paths.
+  const rootPath = path.resolve(options.path).replace(/\\/g, "/");
 
   const projectOptions = options.tsConfigPath
     ? { tsConfigFilePath: options.tsConfigPath, skipAddingFilesFromTsConfig: false }
@@ -473,4 +476,3 @@ function extractCheckedOkAnnotation(node: FunctionLike): string | undefined {
 
   return undefined;
 }
-
