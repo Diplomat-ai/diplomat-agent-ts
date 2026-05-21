@@ -165,6 +165,21 @@ function buildSummary(tools: Tool[]): ScanSummary {
   return { total: tools.length, noChecks, partialChecks, confirmed };
 }
 
+function hasTypeScriptFiles(dir: string): boolean {
+  try {
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isFile() && (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx"))) {
+        return true;
+      }
+      if (entry.isDirectory() && !entry.name.startsWith(".") && entry.name !== "node_modules") {
+        if (hasTypeScriptFiles(path.join(dir, entry.name))) return true;
+      }
+    }
+  } catch { /* ignore */ }
+  return false;
+}
+
 // ---------------------------------------------------------------------------
 // Output helper
 // ---------------------------------------------------------------------------
@@ -212,6 +227,20 @@ export async function main(argv: string[] = process.argv.slice(2)): Promise<numb
 
   // Run scan
   const tools = await scan({ path: scanPath });
+
+  // Warn early if nothing was found — helps diagnose wrong-path mistakes
+  if (tools.length === 0) {
+    // Check if the directory had any .ts files at all
+    const hasTsFiles = hasTypeScriptFiles(scanPath);
+    if (!hasTsFiles) {
+      process.stderr.write(
+        `Warning: no .ts or .tsx files found in ${scanPath}\n` +
+        `  Did you point to the right directory? (default is current directory)\n` +
+        `  Example: diplomat-agent-ts scan ./src\n`
+      );
+    }
+  }
+
   applyMissingHintsToAll(tools);
   applyOwasp(tools);
 
@@ -258,7 +287,9 @@ const isMain =
     try {
       return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(process.argv[1]);
     } catch {
-      return false;
+      // realpathSync can throw on broken symlinks or exotic path configs.
+      // cli.ts is never imported as a library, so defaulting to true is safe.
+      return true;
     }
   })();
 
