@@ -16,7 +16,7 @@
 
 > **You shipped a TypeScript AI agent. Do you know every function it can call that writes to a database, sends an email, charges a card, or deletes data — and which ones have zero checks?**
 
-`diplomat-agent-ts` runs a static AST scan and tells you exactly that. Two dependencies. 8 seconds on a 1,500-file agent codebase.
+`diplomat-agent-ts` runs a static AST scan and tells you exactly that. Two dependencies. ~9 s on a 7,874-file TypeScript agent codebase (OpenClaw, M-series). ~30 s on slower x86 hardware without a `tsconfig.json`.
 
 ```bash
 npm install -D @diplomat-ai/diplomat-agent-ts
@@ -42,7 +42,7 @@ In an agent, an LLM decides which functions to call, with what arguments, how ma
 
 **Without guards in the code, there's nothing between the LLM's decision and the real-world consequence.**
 
-We scanned the [OpenClaw](https://github.com/openclaw/openclaw) agent codebase (7,874 TypeScript files, ~9s on M-series). **419 tool calls had real side effects. 332 of them (79%) had zero checks.** Not a single one was confirmed.
+We scanned the [OpenClaw](https://github.com/openclaw/openclaw) agent codebase at pinned commit [`49d9996d`](https://github.com/openclaw/openclaw/commit/49d9996d3d99f5d05ce6e83b67b55ad0655ec6a5) (7,874 TypeScript files, ~9 s on M-series, ~30 s on x86). **419 tool calls had real side effects. 332 of them (79%) had zero checks.** Not a single one was confirmed.
 
 ## What it detects
 
@@ -195,14 +195,16 @@ Three pure stages, no shared state. See [`CONTRIBUTING.md`](./CONTRIBUTING.md) f
 
 ## Benchmarks
 
-Real codebases, real numbers:
+Real codebases, real numbers.
 
-| Codebase (scope) | Type | TS files | Tool calls | `no_checks` | `partial` |
-|---|---|---|---|---|---|
-| **OpenClaw** (`src/`) | Application | 7,874 | 419 | 332 (79%) | 87 |
-| Mastra (`packages/`) | Framework | 2,777 | 185 | 162 (88%) | 23 |
-| OpenAI Agents JS (`packages/`) | Framework | 426 | 33 | 31 (94%) | 2 |
-| OpenAI Agents JS (`examples/`) | Examples | 302 | 32 | 28 (88%) | 4 |
+**Methodology.** File counts are the number of `.ts` / `.tsx` files actually scanned after the scanner's built-in exclusions (`node_modules/`, `dist/`, `build/`, `*.test.ts`, `*.spec.ts`, `*.d.ts`). They can differ from a raw `git ls-files` count by a few percent. Runs are pinned to the commits below. Findings counts (`tool_calls`, `no_checks`, `partial`) reproduce exactly at those commits; raw file totals on `main` will drift over time.
+
+| Codebase (scope) | Type | TS files scanned | Tool calls | `no_checks` | `partial` | Pinned commit |
+|---|---|---|---|---|---|---|
+| **OpenClaw** (`src/`) | Application | 7,874 | 419 | 332 (79%) | 87 | [`49d9996d`](https://github.com/openclaw/openclaw/commit/49d9996d3d99f5d05ce6e83b67b55ad0655ec6a5) |
+| Mastra (`packages/`) | Framework | 2,777 | 185 | 162 (88%) | 23 | [`38b87964`](https://github.com/mastra-ai/mastra/commit/38b87964359268d634023a3d94e9f421ae3fcd05) |
+| OpenAI Agents JS (`packages/`) | Framework | 426 | 33 | 31 (94%) | 2 | [`629d35af`](https://github.com/openai/openai-agents-js/commit/629d35af99e1ba80fc968b0d062c070caed0683d) |
+| OpenAI Agents JS (`examples/`) | Examples | 302 | 32 | 28 (88%) | 4 | [`629d35af`](https://github.com/openai/openai-agents-js/commit/629d35af99e1ba80fc968b0d062c070caed0683d) |
 
 Run the benchmarks yourself:
 
@@ -248,7 +250,7 @@ Full limitations and pattern refinement history → [`docs/limitations.md`](./do
 - [x] OWASP Agentic Top 10 mapping
 - [x] CI integration (`--fail-on-unchecked`)
 - [x] `// checked:ok` annotations (with `diplomat:ok` / `canary:ok` aliases)
-- [x] Validated against OpenClaw (8,005 files, 32s)
+- [x] Validated against OpenClaw (7,874 files, ~9 s on M-series / ~30 s on x86, pinned commit `49d9996d`)
 - [ ] Inter-procedural decorator resolution (v0.2)
 - [ ] SARIF 2.1.0 output (v0.2)
 - [ ] `--diff-only` for changed files (v0.2)

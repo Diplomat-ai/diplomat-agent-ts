@@ -1,6 +1,6 @@
 {
   "name": "@diplomat-ai/diplomat-agent-ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scan TypeScript AI agent code for unguarded tool calls. Reports every function with side effects and shows which ones have no checks.",
   "type": "module",
   "main": "./dist/index.js",
