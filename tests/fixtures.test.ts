@@ -195,6 +195,15 @@ describe("fixture: unguarded-dynamic-code-eval", () => {
   });
 });
 
+describe("fixture: unguarded-dynamic-code-new-function", () => {
+  it("detects 1 tool, dynamic_code, no_checks", async () => {
+    const tools = await scan({ path: fix("unguarded-dynamic-code-new-function") });
+    expect(tools).toHaveLength(1);
+    expect(tools[0]?.sideEffects.map((s) => s.category)).toContain("dynamic_code");
+    expect(tools[0]?.status).toBe("no_checks");
+  });
+});
+
 describe("fixture: unguarded-dynamic-code-vm", () => {
   it("detects 1 tool, dynamic_code, no_checks", async () => {
     const tools = await scan({ path: fix("unguarded-dynamic-code-vm") });

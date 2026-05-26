@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] — 2026-05-26
+
+### Fixed
+- Windows path normalization in `src/scanner/ast-scanner.ts`: `path.resolve()` returns backslashes on Windows but ts-morph's `getFilePath()` always returns forward slashes, so the `filePath.startsWith(rootPath)` filter dropped every source file and the scanner returned 0 findings. The published 0.1.0 tarball was affected; 0.1.1 ships the fix.
+
+### Added
+- `new Function(...)` detection in the `dynamic_code` category (risk 3, mapped to ASI-02 / ASI-03). The README listed it as a covered pattern since 0.1.0 but the scanner only matched `eval(...)` and `vm.runIn*` until now. New fixture: `tests/fixtures/unguarded-dynamic-code-new-function/`. Test count: 196 → 197.
+
+### Docs
+- Benchmarks table: added a methodology note clarifying that file counts are post-exclusion, not raw `git ls-files`, and that findings reproduce at the pinned commits.
+- Aligned the three OpenClaw figures across README to one consistent value: 7,874 files, ~9 s on M-series / ~30 s on x86.
+- Added pinned-commit links for OpenClaw `49d9996d`, Mastra `38b87964`, and OpenAI Agents JS `629d35af`.
+
 ## [0.1.0] — 2026-05-16
 
 ### Scanner

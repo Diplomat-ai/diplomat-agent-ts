@@ -52,7 +52,10 @@ export interface ScanOptions {
  * Mirrors `scan_directory()` in ast_scanner.py.
  */
 export async function scan(options: ScanOptions): Promise<Tool[]> {
-  const rootPath = path.resolve(options.path);
+  // Normalize to forward slashes so that startsWith() works on Windows,
+  // where path.resolve() returns backslashes but ts-morph getFilePath()
+  // always returns forward-slash paths.
+  const rootPath = path.resolve(options.path).replace(/\\/g, "/");
 
   const projectOptions = options.tsConfigPath
     ? { tsConfigFilePath: options.tsConfigPath, skipAddingFilesFromTsConfig: false }
@@ -266,6 +269,28 @@ function processFunctionLike(
     }
   }
 
+  // Step 2b: detect Function constructor usage. `new Function(...)` is a
+  // NewExpression rather than a CallExpression, so it is not covered by the
+  // loop above even though it carries the same dynamic-code risk as eval().
+  for (const newExpr of body.getDescendantsOfKind(SyntaxKind.NewExpression)) {
+    const callee = newExpr.getExpression();
+    if (callee.getKind() !== SyntaxKind.Identifier || callee.getText() !== "Function") {
+      continue;
+    }
+
+    const line = newExpr.getStartLineNumber();
+    const key = `dynamic_code:${line}`;
+    if (!seenSideEffects.has(key)) {
+      seenSideEffects.add(key);
+      sideEffects.push({
+        category: "dynamic_code",
+        risk: 3,
+        code: codeExcerpt(newExpr, 120),
+        line,
+      });
+    }
+  }
+
   if (sideEffects.length === 0) return null;
 
   // Step 3: collect guards
@@ -415,7 +440,7 @@ function getDecoratorNames(node: FunctionLike): string[] {
  * Return a short code excerpt for a node (trimmed, max maxLen chars).
  * Mirrors `_src()` in Python.
  */
-function codeExcerpt(node: CallExpression, maxLen: number): string {
+function codeExcerpt(node: Node, maxLen: number): string {
   const sourceFile = node.getSourceFile();
   const startLine = node.getStartLineNumber();
   const lineText = sourceFile.getFullText().split("\n")[startLine - 1] ?? "";
@@ -473,4 +498,3 @@ function extractCheckedOkAnnotation(node: FunctionLike): string | undefined {
 
   return undefined;
 }
-
