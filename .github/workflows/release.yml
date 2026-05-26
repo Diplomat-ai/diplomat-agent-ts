@@ -79,8 +79,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install hatchling and twine
-        run: pip install hatchling twine --quiet
+      - name: Install hatchling
+        run: pip install hatchling --quiet
 
       - name: Build Python wheel
         run: |
@@ -88,9 +88,9 @@ jobs:
           python -m hatchling build
 
       - name: Publish to PyPI
-        run: |
-          cd python
-          python -m twine upload dist/* --non-interactive
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        continue-on-error: true  # skip if version already published
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}
+          packages-dir: python/dist/
+          skip-existing: true
