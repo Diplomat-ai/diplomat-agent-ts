@@ -1,3 +1,4 @@
+
 ## Summary
 
 <!-- What does this PR change? Why is it needed? -->
@@ -18,3 +19,4 @@
 - [ ] `toolcalls.yaml` updated if pattern catalog changed
 - [ ] No `--fail-on-unchecked` regression introduced on `./src`
 - [ ] Relevant docs updated (README, `docs/`)
+- [ ] If user-facing behavior changed, `CHANGELOG.md` updated
